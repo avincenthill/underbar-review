@@ -16,9 +16,7 @@
   };
 
   describe('Part II', function() {
-
     describe('contains', function() {
-
       it('should not mutate the input array', function() {
         var input = [1, 2, 3, 4, 5];
         var result = _.contains(input, 4);
@@ -56,9 +54,9 @@
       });
 
       it('should return false given an array and a value not in that array', function() {
-        // Replace this line with an `expect` statement that tests
-        // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        var array = [1, 2, 3];
+        var value = 69;
+        expect(_.contains(array, value)).to.be.false;
       });
 
       it('should return true given a object and a value from that object', function() {
@@ -79,7 +77,6 @@
         return num % 2 === 0;
       };
 
-
       it('passes by default for an empty collection', function() {
         expect(_.every([], _.identity)).to.be.true;
       });
@@ -91,7 +88,7 @@
       it('fails for a collection of all-falsy values', function() {
         // Replace this line with an `expect` statement that tests
         // the behavior described by the `it` string
-        throw new Error('This test is missing.');
+        expect(_.every([false, undefined, null], _.identity)).to.be.false;
       });
 
       it('fails for a collection containing mixed falsy and truthy values', function() {
@@ -100,7 +97,8 @@
       });
 
       it('should work when provided a collection containing undefined values', function() {
-        expect(_.every([undefined, undefined, undefined], _.identity)).to.be.false;
+        expect(_.every([undefined, undefined, undefined], _.identity)).to.be
+          .false;
       });
 
       it('should cast the result to a boolean', function() {
@@ -124,7 +122,6 @@
       var isEven = function(number) {
         return number % 2 === 0;
       };
-
 
       it('should fail by default for an empty collection', function() {
         expect(_.some([])).to.be.false;
@@ -169,7 +166,6 @@
     });
 
     describe('extend', function() {
-
       it('returns the first argument', function() {
         var destination = {};
         var source = {};
@@ -214,7 +210,6 @@
     });
 
     describe('defaults', function() {
-
       it('should return the original target object', function() {
         /*
          * Our defaults function should only modify the contents of the original object,
@@ -302,7 +297,7 @@
          * precise enough with our conditional check, we might get these unexpected results
          */
 
-        var destination = {a: '', b: 0, c: NaN };
+        var destination = { a: '', b: 0, c: NaN };
         var source = { a: 1, b: 2, c: 3 };
 
         _.defaults(destination, source);
@@ -338,7 +333,6 @@
     });
 
     describe('once', function() {
-
       it('should return a function', function() {
         // noop is short for `no-operation` and is pronounced `no-op`
         var noop = _.once(function() {});
@@ -389,7 +383,6 @@
         memoAdd = _.memoize(add);
       });
 
-
       it('should produce the same result as the non-memoized version', function() {
         expect(add(1, 2)).to.equal(3);
         expect(memoAdd(1, 2)).to.equal(3);
@@ -405,7 +398,9 @@
         // Here, we wrap a dummy function in a spy. A spy is a wrapper function (much like _.memoize
         // or _.once) that keeps track of interesting information about the function it's spying on;
         // e.g. whether or not the function has been called.
-        var spy = sinon.spy(function() { return 'Dummy output'; });
+        var spy = sinon.spy(function() {
+          return 'Dummy output';
+        });
         var memoSpy = _.memoize(spy);
 
         memoSpy(10);
@@ -413,10 +408,12 @@
         memoSpy(10);
         expect(spy).to.have.been.calledOnce;
       });
-      
+
       it('should not run the memoized function twice when given a reference type as an argument', function() {
         // Be careful how you are checking if a set of arguments has been passed in already
-        var spy = sinon.spy(function() { return 'Dummy output'; });
+        var spy = sinon.spy(function() {
+          return 'Dummy output';
+        });
         var memoSpy = _.memoize(spy);
 
         memoSpy([1, 2, 3]);
@@ -427,7 +424,9 @@
 
       it('should run the memoized function twice when given an array and then given a list of arguments', function() {
         // Be careful how you are checking if a set of arguments has been passed in already
-        var spy = sinon.spy(function() { return 'Dummy output'; });
+        var spy = sinon.spy(function() {
+          return 'Dummy output';
+        });
         var memoSpy = _.memoize(spy);
 
         memoSpy([1, 2, 3]);
@@ -443,7 +442,6 @@
       beforeEach(function() {
         callback = sinon.spy();
       });
-
 
       it('should only execute the function after the specified wait time', function() {
         _.delay(callback, 100);
@@ -465,7 +463,6 @@
     });
 
     describe('shuffle', function() {
-
       it('should not modify the original object', function() {
         var numbers = [4, 5, 6];
         var shuffled = _.shuffle(numbers).sort();
@@ -488,9 +485,6 @@
         // This test will fail 1/9! times
         expect(shuffled).to.not.eql([4, 5, 6, 7, 8, 9, 10]);
       });
-
     });
-
   });
-
-}());
+})();
