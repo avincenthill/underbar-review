@@ -102,19 +102,23 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-    let results = {};
+    let object = {};
+    let values = [];
 
     _.each(array, element => {
-      if (iterator && isSorted) {
-        results[iterator(element)];
+      if (iterator) {
+        object[iterator(element)] = element;
       } else {
-        results[element];
+        object[element] = element;
       }
     });
 
-    let values = [];
-    for (let key in results) {
-      values.push(results.key);
+    for (let key in object) {
+      if (iterator) {
+        values.push(object[key]);
+      } else {
+        values.push(object[key]);
+      }
     }
     return values;
   };
@@ -201,22 +205,13 @@
 
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
-    let value = _.reduce(
-      collection,
-      ele => {
-        if (!iterator(ele)) {
-          return 1;
-        }
-      },
-      0
-    );
-    return value === 0 ? true : false;
-    // _.each(collection, element => {
-    //   if (!iterator(element)) {
-    //     return false;
-    //   }
-    // });
-    // return true;
+    iterator = iterator || _.identity;
+    let ander = (element, accumulator) => {
+      return accumulator && iterator(element);
+    };
+
+    let result = !!_.reduce(collection, ander, true);
+    return result;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
