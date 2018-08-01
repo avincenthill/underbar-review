@@ -329,16 +329,8 @@
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
     let args = Array.prototype.slice.call(arguments).slice(2);
-    console.log(args);
     setTimeout(() => {
-      func.apply(args);
-      // _.each(arguments, element => {
-      //   let counter = 0;
-      //   if (counter > 1) {
-      //     counter++;
-      //     func(element);
-      //   }
-      // });
+      func.apply(func, args);
     }, wait);
   };
 
@@ -352,7 +344,27 @@
   // TIP: This function's test suite will ask that you not modify the original
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
-  _.shuffle = function(array) {};
+  _.shuffle = function(array) {
+    let result = [];
+    let indexesUsed = {};
+
+    let randomize = num => {
+      return Math.floor(Math.random() * num);
+    };
+
+    let selectedIndex = randomize(array.length);
+    _.each(array, () => {
+      //randomize until we get new index
+      while (selectedIndex in indexesUsed) {
+        selectedIndex = randomize(array.length);
+      }
+
+      indexesUsed[selectedIndex] = selectedIndex;
+      result.push(array[selectedIndex]);
+    });
+
+    return result;
+  };
 
   /**
    * ADVANCED
