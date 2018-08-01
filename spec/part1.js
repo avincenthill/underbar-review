@@ -335,7 +335,7 @@
           return value === 1;
         };
         var numbers = [1, 2, 2, 3, 4, 4];
-
+        //debugger;
         expect(_.uniq(numbers, true, iterator)).to.eql([1, 2]);
       });
 
